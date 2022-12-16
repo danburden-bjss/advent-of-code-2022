@@ -38,12 +38,16 @@ const startingLayout = {
 const moveTheCrates = (startingLayout, mappedInstructions) => {
   let crates = { ...startingLayout };
   mappedInstructions.forEach((instruction) => {
-    let crateToMove;
-    // remove the crates one by one from the starting column and move it to the destination
-    for (let i = 1; i <= instruction.crateCount; i++) {
-      crateToMove = crates[instruction.startPos].pop();
-      crates[instruction.destination].push(crateToMove);
-    }
+    let cratesToMove;
+    cratesToMove = crates[instruction.startPos].splice(
+      crates[instruction.startPos].length - instruction.crateCount,
+      instruction.crateCount
+    );
+    crates[instruction.destination].splice(
+      crates[instruction.destination].length,
+      0,
+      ...cratesToMove
+    );
   });
   // end result is Object.values() array.pop()
   return Object.values(crates).map((crateColumn) => {
