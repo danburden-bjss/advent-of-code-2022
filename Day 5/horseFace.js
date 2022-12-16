@@ -55,3 +55,14 @@ const moveTheCrates = (startingLayout, mappedInstructions) => {
 const moved = moveTheCrates(startingLayout, mappedInstructions);
 
 console.log(moved);
+
+// const testLayout = {
+//   1: ["Z", "N"],
+//   2: ["M", "C", "D"],
+//   3: ["P"],
+// };
+// const testInput = parseFileAsArray("./testInput");
+// const testInstructions = buildInstruction(testInput);
+//
+// const aaa = moveTheCrates(testLayout, testInstructions);
+// console.log(aaa)
