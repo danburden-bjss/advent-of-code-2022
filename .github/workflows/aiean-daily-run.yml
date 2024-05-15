@@ -2,7 +2,7 @@ name: "Daily Starter question tests"
 on:
   schedule:
     - cron: "*/5 * * * *" # run at 8.30am UTC every day
-    - cron: "29 * * * *" # run at 8.30am UTC every day
+    - cron: "30 * * * *" # run at 8.30am UTC every day
   workflow_dispatch:
     inputs:
       run-sentiment:
@@ -42,7 +42,7 @@ jobs:
         env:
           ALLOWED_FAILURES: ${{ inputs.allowed-failures }} || 5
   smoke-test:
-    if: ${{ (contains(github.event.schedule, '29 * * * *')) || (contains(github.event.schedule, '*/5 * * * *')) || (github.event.inputs.run-smoke == true) }}
+    if: ${{ (contains(github.event.schedule, '30 * * * *')) || (contains(github.event.schedule, '*/5 * * * *')) || (github.event.inputs.run-smoke == true) }}
     defaults:
       run:
         shell: bash
