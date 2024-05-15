@@ -7,14 +7,14 @@ on:
       allowed-failures:
         description: How many keywords can be missing before the test fails
         default: 5
-        required: false
+        required: true
       smoke-tolerance:
         description: Percentage difference from expected length
         default: 75
         required: false
 jobs:
   daily-sense-check:
-    if: github.event.workflow_dispatch
+    if: "${{ github.event.inputs.allowed-failures != '' }}"
     defaults:
       run:
         shell: bash
