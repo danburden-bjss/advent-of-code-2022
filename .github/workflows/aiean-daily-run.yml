@@ -14,11 +14,10 @@ on:
         required: false
 jobs:
   daily-sense-check:
-    if: contains(github.event.workflow_dispatch, 'inputs')
+    if: github.event.workflow_dispatch
     defaults:
       run:
         shell: bash
-        working-directory: "./tests"
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -34,11 +33,10 @@ jobs:
         env:
           ALLOWED_FAILURES: ${{ inputs.allowed-failures }} || 5
   smoke-test:
-    if: contains(github.event.schedule, '*/5 * * * *')
+    if: contains(github.event.schedule, '*')
     defaults:
       run:
         shell: bash
-        working-directory: "./tests"
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
