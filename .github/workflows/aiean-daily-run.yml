@@ -23,7 +23,7 @@ on:
         required: false
 jobs:
   daily-sense-check:
-    if: "${{ github.event.inputs.run-daily == true }}"
+    if: "${{ github.event.inputs.run-sentiment == true }}"
     defaults:
       run:
         shell: bash
