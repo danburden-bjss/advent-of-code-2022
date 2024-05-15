@@ -14,7 +14,7 @@ on:
         required: false
 jobs:
   daily-sense-check:
-    if: contains(github.event.workflow_dispatch, '-')
+    if: contains(github.event.workflow_dispatch, '5')
     defaults:
       run:
         shell: bash
