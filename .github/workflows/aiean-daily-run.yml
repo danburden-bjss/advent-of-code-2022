@@ -23,7 +23,7 @@ on:
         required: false
 jobs:
   daily-sense-check:
-    if: "${{ github.event.inputs.run-sentiment == true }}"
+    if: "${{ github.event.inputs.run-sentiment == 'true' }}"
     defaults:
       run:
         shell: bash
@@ -42,7 +42,7 @@ jobs:
         env:
           ALLOWED_FAILURES: ${{ inputs.allowed-failures }} || 5
   smoke-test:
-    if: ${{ (contains(github.event.schedule, '30 * * * *')) || (contains(github.event.schedule, '*/5 * * * *')) || (github.event.inputs.run-smoke == true) }}
+    if: ${{ (contains(github.event.schedule, '30 * * * *')) || (contains(github.event.schedule, '*/5 * * * *')) || (github.event.inputs.run-smoke == 'true') }}
     defaults:
       run:
         shell: bash
