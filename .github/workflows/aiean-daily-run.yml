@@ -14,7 +14,7 @@ on:
         required: false
 jobs:
   daily-sense-check:
-    if: contains(github.event.workflow_dispatch, '5')
+    if: contains(github.event.workflow_dispatch, 'inputs')
     defaults:
       run:
         shell: bash
@@ -34,7 +34,7 @@ jobs:
         env:
           ALLOWED_FAILURES: ${{ inputs.allowed-failures }} || 5
   smoke-test:
-    if: contains(github.event.schedule, '*')
+    if: contains(github.event.schedule, '*/5 * * * *')
     defaults:
       run:
         shell: bash
