@@ -2,11 +2,20 @@ name: "Daily Starter question tests"
 on:
   schedule:
     - cron: "*/5 * * * *" # run at 8.30am UTC every day
+    - cron: "20 * * * *" # run at 8.30am UTC every day
   workflow_dispatch:
     inputs:
+      run-sentiment:
+        description: Whether or not to run the sentiment tests
+        default: true
+        required: true
       allowed-failures:
         description: How many keywords can be missing before the test fails
         default: 5
+        required: false
+      run-smoke:
+        description: Whether or not to run the Smoke length tests
+        default: false
         required: true
       smoke-tolerance:
         description: Percentage difference from expected length
@@ -14,7 +23,7 @@ on:
         required: false
 jobs:
   daily-sense-check:
-    if: "${{ github.event.inputs.allowed-failures != '' }}"
+    if: "${{ github.event.inputs.run-daily != true }}"
     defaults:
       run:
         shell: bash
@@ -33,7 +42,7 @@ jobs:
         env:
           ALLOWED_FAILURES: ${{ inputs.allowed-failures }} || 5
   smoke-test:
-    if: contains(github.event.schedule, '*')
+    if: ${{ (contains(github.event.schedule, '20 * * * *')) && (github.event.inputs.run-smoke == true) }}
     defaults:
       run:
         shell: bash
