@@ -31,4 +31,4 @@ jobs:
         id: smoke-test-run
         run: echo "Should only run on schedule ${{ env.SMOKE_TOLERANCE }}"
         env:
-          SMOKE_TOLERANCE: "${{ inputs.smoke-tolerance }} || 75"
+          SMOKE_TOLERANCE: ${{ inputs.smoke-tolerance || 75 }}
