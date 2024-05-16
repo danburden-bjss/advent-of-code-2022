@@ -1,62 +1,62 @@
-name: "Daily Starter question tests"
-on:
-  schedule:
-    - cron: "*/5 * * * *" # run at 8.30am UTC every day
-    - cron: "30 * * * *" # run at 8.30am UTC every day
-  workflow_dispatch:
-    inputs:
-      run-sentiment:
-        description: Whether or not to run the sentiment tests
-        default: true
-        required: true
-      allowed-failures:
-        description: How many keywords can be missing before the test fails
-        default: 5
-        required: false
-      run-smoke:
-        description: Whether or not to run the Smoke length tests
-        default: false
-        required: true
-      smoke-tolerance:
-        description: Percentage difference from expected length
-        default: 75
-        required: false
-jobs:
-  daily-sense-check:
-    if: "${{ github.event.inputs.run-sentiment == 'true' }}"
-    defaults:
-      run:
-        shell: bash
-    timeout-minutes: 60
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - name: Install dependencies
-        run: npm ci
-      - name: Run daily sentiment tests
-        id: test-run
-        run: echo "Should only run on dispatch ${{ env.ALLOWED_FAILURES }}"
-        env:
-          ALLOWED_FAILURES: ${{ inputs.allowed-failures }} || 5
-  smoke-test:
-    if: ${{ (contains(github.event.schedule, '30 * * * *')) || (contains(github.event.schedule, '*/5 * * * *')) || (github.event.inputs.run-smoke == 'true') }}
-    defaults:
-      run:
-        shell: bash
-    timeout-minutes: 60
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - name: Install dependencies
-        run: npm ci
-      - name: Run smoke tests
-        id: smoke-test-run
-        run: echo "Should only run on schedule ${{ env.SMOKE_TOLERANCE }}"
-        env:
-          SMOKE_TOLERANCE: ${{ inputs.smoke-tolerance }} || 75
+#name: "Daily Starter question tests"
+#on:
+#  schedule:
+#    - cron: "*/5 * * * *" # run at 8.30am UTC every day
+#    - cron: "30 * * * *" # run at 8.30am UTC every day
+#  workflow_dispatch:
+#    inputs:
+#      run-sentiment:
+#        description: Whether or not to run the sentiment tests
+#        default: true
+#        required: true
+#      allowed-failures:
+#        description: How many keywords can be missing before the test fails
+#        default: 5
+#        required: false
+#      run-smoke:
+#        description: Whether or not to run the Smoke length tests
+#        default: false
+#        required: true
+#      smoke-tolerance:
+#        description: Percentage difference from expected length
+#        default: 75
+#        required: false
+#jobs:
+#  daily-sense-check:
+#    if: "${{ github.event.inputs.run-sentiment == 'true' }}"
+#    defaults:
+#      run:
+#        shell: bash
+#    timeout-minutes: 60
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v4
+#      - uses: actions/setup-node@v4
+#        with:
+#          node-version: 20
+#      - name: Install dependencies
+#        run: npm ci
+#      - name: Run daily sentiment tests
+#        id: test-run
+#        run: echo "Should only run on dispatch ${{ env.ALLOWED_FAILURES }}"
+#        env:
+#          ALLOWED_FAILURES: ${{ inputs.allowed-failures }} || 5
+#  smoke-test:
+#    if: ${{ (contains(github.event.schedule, '30 * * * *')) || (contains(github.event.schedule, '*/5 * * * *')) || (github.event.inputs.run-smoke == 'true') }}
+#    defaults:
+#      run:
+#        shell: bash
+#    timeout-minutes: 60
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v4
+#      - uses: actions/setup-node@v4
+#        with:
+#          node-version: 20
+#      - name: Install dependencies
+#        run: npm ci
+#      - name: Run smoke tests
+#        id: smoke-test-run
+#        run: echo "Should only run on schedule ${{ env.SMOKE_TOLERANCE }}"
+#        env:
+#          SMOKE_TOLERANCE: ${{ inputs.smoke-tolerance }} || 75
