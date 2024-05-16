@@ -1,7 +1,7 @@
 name: "Daily Starter question tests"
 on:
   schedule:
-    - cron: "16 * * * *" # run at 8.30am UTC every day
+    - cron: "19 * * * *"
   workflow_dispatch:
     inputs:
       allowed-failures:
@@ -17,7 +17,6 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: "./tests"
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
